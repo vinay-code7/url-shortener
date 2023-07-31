@@ -1,0 +1,60 @@
+<%- include("header") %>
+<body>
+    <div class="container">
+      <h1>Url Shortner</h1>
+
+      <form action="shortUrl" method="post">
+        <div class="mb-3">
+          <input
+            type="url"
+            class="form-control"
+            id="url-input"
+            name="url-input"
+            placeholder="Enter Url"
+            required
+            autocomplete="off"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="custom-input" class="form-label" autocomplete="off"
+            >Your shortened url (edit it if you want):
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            name="custom-input"
+            id="custom-input"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Shorten Url</button>
+      </form>
+    </div>
+
+    <script>
+      const customUrl = document.getElementById("custom-input");
+      customUrl.value = getRandomString();
+
+      //   customUrl.addEventListener("input", () => {
+      //     if (!customUrl.value.startsWith("hello.com/")) {
+      //       customUrl.value = "hello.com/";
+      //     }
+      //   });
+
+      customUrl.addEventListener("click", () => {
+        customUrl.select();
+      });
+
+      function getRandomString() {
+        const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+        let result = "";
+
+        for (let i = 0; i < 6; i++) {
+          const randomIndex = Math.floor(Math.random() * chars.length);
+          result += chars.charAt(randomIndex);
+        }
+
+        return result;
+      }
+    </script>
+  </body>
+</html>
