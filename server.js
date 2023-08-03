@@ -13,16 +13,16 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", async (req, res) => {
-  // const shortUrls = await urlDatabase.find();
-  // res.render("index", { shortUrls: shortUrls });
-  res.render("index", { objs: req.query });
+  const data = {
+    full: req.query.full || "",
+    short: req.query.short || "",
+    message: req.query.message || "",
+  }
+
+  res.render("index", data);
 });
 
-app.get("/success/:short", (req, res) => {
-  res.render("success", { short: req.params.short });
-});
-
-app.post("/shorturl", async (req, res) => {
+app.post("/", async (req, res) => {
   fullUrl = req.body["url-input"];
   shortUrl = req.body["custom-input"];
 
@@ -32,31 +32,25 @@ app.post("/shorturl", async (req, res) => {
 
   // already taken
   if (data != null) {
-    return res.redirect(data.full);
+    return res.redirect(`/?short=${shortUrl}&full=${fullUrl}&message=taken`);
   }
 
-  await shortUrl.create({
+  await urlDatabase.create({
     full: fullUrl,
     short: shortUrl,
   });
-  res.redirect(`/success/${req.body["custom-input"]}`);
+  res.redirect(`/?short=${shortUrl}&full=${fullUrl}&message=success`);
 });
 
-// app.get("/source-route", (req, res) => {
-//   const dataToPass = "Hello from the source route";
-//   res.redirect(`/destination-route?data=${encodeURIComponent(dataToPass)}`);
-// });
-
-// app.get("/destination-route", (req, res) => {
-//   const data = req.query.data;
-//   console.log(data)
-//   res.redirect("/");
-// });
+app.get("/database", async (req, res) => {
+  const shortUrls = await urlDatabase.find();
+  res.render("database", {shortUrls: shortUrls});
+})
 
 app.get("/:shortUrl", async (req, res) => {
   const data = await urlDatabase.findOne({ short: req.params.shortUrl });
   if (data == null) {
-    return res.render("not_found");
+    return res.send("<h1>URL Not Found</h1>");
   }
   res.redirect(data.full);
 });

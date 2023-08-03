@@ -1,60 +1,75 @@
-<%- include("header") %>
-<body>
-    <div class="container">
-      <h1>Url Shortner</h1>
-
-      <form action="shortUrl" method="post">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Url Shortner</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="bg-dark text-light">
+    <div class="d-flex justify-content-center m-4">
+      <h1>URL Shortner</h1>
+    </div>
+    <div class="container d-flex justify-content-center">
+      <form action="" method="post">
         <div class="mb-3">
           <input
             type="url"
             class="form-control"
             id="url-input"
             name="url-input"
-            placeholder="Enter Url"
+            placeholder="Enter URL"
             required
             autocomplete="off"
           />
         </div>
         <div class="mb-3">
-          <label for="custom-input" class="form-label" autocomplete="off"
-            >Your shortened url (edit it if you want):
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            name="custom-input"
-            id="custom-input"
-          />
+          <label for="custom-input" class="form-label"> Custom URL: </label>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">localhost:3000/</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              name="custom-input"
+              id="custom-input"
+              autocomplete="off"
+            />
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary">Shorten Url</button>
+        <div class="d-flex justify-content-center m-4">
+          <button type="submit" class="btn btn-primary">Shorten Url</button>
+        </div>
+        <div class="input-group">
+          <input type="text" class="form-control" id="generated-url" disabled />
+          <div class="input-group-append">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              id="copy-button"
+              onclick="copyUrl()"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
       </form>
     </div>
-
+    <div class="d-flex justify-content-center m-4">
+      <h4 id="message"></h4>
+    </div>
     <script>
-      const customUrl = document.getElementById("custom-input");
-      customUrl.value = getRandomString();
-
-      //   customUrl.addEventListener("input", () => {
-      //     if (!customUrl.value.startsWith("hello.com/")) {
-      //       customUrl.value = "hello.com/";
-      //     }
-      //   });
-
-      customUrl.addEventListener("click", () => {
-        customUrl.select();
-      });
-
-      function getRandomString() {
-        const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-        let result = "";
-
-        for (let i = 0; i < 6; i++) {
-          const randomIndex = Math.floor(Math.random() * chars.length);
-          result += chars.charAt(randomIndex);
-        }
-
-        return result;
-      }
+      const FULL = "<%- full %>";
+      const SHORT = "<%- short %>";
+      const MESSAGE = "<%- message %>";
     </script>
+    <script src="script.js"></script>
   </body>
 </html>
