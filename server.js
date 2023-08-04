@@ -1,12 +1,17 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const urlDatabase = require("./models/shortUrl");
 const app = express();
 
-mongoose.connect("mongodb://localhost/urlShortener", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.1ojene6.mongodb.net/urlShortener`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -17,7 +22,7 @@ app.get("/", async (req, res) => {
     full: req.query.full || "",
     short: req.query.short || "",
     message: req.query.message || "",
-  }
+  };
 
   res.render("index", data);
 });
@@ -44,8 +49,8 @@ app.post("/", async (req, res) => {
 
 app.get("/database", async (req, res) => {
   const shortUrls = await urlDatabase.find();
-  res.render("database", {shortUrls: shortUrls});
-})
+  res.render("database", { shortUrls: shortUrls });
+});
 
 app.get("/:shortUrl", async (req, res) => {
   const data = await urlDatabase.findOne({ short: req.params.shortUrl });
@@ -55,7 +60,7 @@ app.get("/:shortUrl", async (req, res) => {
   res.redirect(data.full);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`Running on PORT ${PORT}`);
