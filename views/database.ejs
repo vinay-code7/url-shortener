@@ -1,24 +1,22 @@
-<div class="container">
-  <table class="table">
+<body style="background-color: black; color: white">
+  <table>
     <thead>
       <tr>
-        <th>#</th>
         <th>Full</th>
         <th>Short</th>
       </tr>
     </thead>
     <tbody>
-      <% shortUrls.forEach((shortUrl, key) => { %>
+      <% for (const key in data) { %>
       <tr>
-        <th><%= key+1 %></th>
         <td>
-          <a href="<%= shortUrl.full %>"><%= shortUrl.full %></a>
+          <a href="<%= data[key] %>"><%= data[key] %></a>
         </td>
         <td>
-          <a href="<%= shortUrl.short %>"><%= shortUrl.short %></a>
+          <a href="<%= key %>"><%= key %></a>
         </td>
       </tr>
-      <% }) %>
+      <% } %>
     </tbody>
   </table>
-</div>
+</body>

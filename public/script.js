@@ -27,9 +27,10 @@ if (urlSelected) {
 shortUrl.value = urlSelected || getRandomString();
 
 if (urlSelected && receivedMessage !== "taken") {
-  generatedUrl.value = "localhost:3000/" + urlSelected;
+  generatedUrl.value = "shorturlsite.onrender.com/" + urlSelected;
 } else {
-  generatedUrl.value = "Generated URL";
+  generatedUrl.value = "";
+  generatedUrl.placeholder = "Generated URL"
 }
 
 if (receivedMessage === "taken") {
@@ -43,7 +44,7 @@ shortUrl.addEventListener("click", () => {
 });
 
 const copyUrl = () => {
-  if (urlSelected) {
+  if (urlSelected && generatedUrl.value) {
     document.getElementById("copy-button").innerHTML = "Copied";
     navigator.clipboard.writeText(generatedUrl.value);
   }
