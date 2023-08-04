@@ -1,19 +1,30 @@
-<body style="background-color: black; color: white">
+<style>
+  a {
+    font-size: 2em;
+    text-decoration: none;
+    margin-right: 2em;
+  }
+  tr:nth-child(even) {
+    background-color: rgb(182, 177, 177);
+  }
+</style>
+
+<body>
   <table>
     <thead>
       <tr>
-        <th>Full</th>
         <th>Short</th>
+        <th>Full</th>
       </tr>
     </thead>
     <tbody>
       <% for (const key in data) { %>
       <tr>
         <td>
-          <a href="<%= data[key] %>"><%= data[key] %></a>
+          <a href="<%= key %>"><%= key %></a>
         </td>
         <td>
-          <a href="<%= key %>"><%= key %></a>
+          <a href="<%= data[key] %>"><%= data[key] %></a>
         </td>
       </tr>
       <% } %>

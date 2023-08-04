@@ -30,13 +30,23 @@ const fetchOne = (key) => {
   });
 };
 
+const writeJson = async (json) => {
+  fs.writeFile(fileName, JSON.stringify(json, null, 2), "utf8", () => {});
+};
+
 const writeData = async (newData) => {
   const data = await fetchAll();
-  const updatedData = { ...data, ...newData };
+  writeJson({ ...data, ...newData });
+};
 
-  fs.writeFile(fileName, JSON.stringify(updatedData, null, 2), "utf8", ()=>{});
+const deleteData = async (key) => {
+  const data = await fetchAll();
+  delete data[key];
+  console.log(key, "deleted");
+  writeJson(data);
 };
 
 exports.fetchAll = fetchAll;
 exports.fetchOne = fetchOne;
 exports.writeData = writeData;
+exports.deleteData = deleteData;
