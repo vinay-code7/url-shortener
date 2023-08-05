@@ -19,7 +19,7 @@ app.get("/", async (req, res) => {
 
 app.post("/", async (req, res) => {
   fullUrl = req.body["url-input"];
-  shortUrl = req.body["custom-input"];
+  shortUrl = req.body["custom-input"].toLowerCase();
 
   const data = await fetchOne(shortUrl);
 
@@ -55,7 +55,7 @@ app.post("/admin", (req, res) => {
 })
 
 app.get("/:shortUrl", async (req, res) => {
-  const data = await fetchOne(req.params.shortUrl);
+  const data = await fetchOne(req.params.shortUrl.toLowerCase());
   if (data == null) {
     return res.send("<h1>URL Not Found</h1>");
   }
