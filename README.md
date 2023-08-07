@@ -1,6 +1,6 @@
-# URL Shortener Project using Express and EJS
+# URL Shortener Project using Express and MongoDB
 
-This is a simple URL shortener project built with Express and EJS. The application allows users to shorten long URLs into custom short URLs and stores the data in a JSON file. It's a lightweight and easy-to-use solution for generating short links.
+This is a simple URL shortener project built with Express and EJS. The application allows users to shorten long URLs into custom short URLs and stores the data on cloud databse on MongoDB. It's a lightweight and easy-to-use solution for generating short links.
 #### Check it out: [shorturlsite.onrender.com](https://shorturlsite.onrender.com/)
 
 ## How to Use
